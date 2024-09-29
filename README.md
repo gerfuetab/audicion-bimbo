@@ -1,2 +1,0 @@
-# audicion-bimbo
-audicion-bimbo
