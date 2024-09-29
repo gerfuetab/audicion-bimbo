@@ -23,5 +23,9 @@ public interface ReportesService {
 	ReporteProveedor reporteProveedor(PeriodoTiempo periodoTiempo);
 	
 	ReporteProveedorPlan reporteProveedorPlan(PeriodoTiempo periodoTiempo);
+	
+	Reporte reporteVentasNumero(PeriodoTiempo periodoTiempo);
+	
+	ReporteProveedor reporteProveedorPlanID(PeriodoTiempo periodoTiempo);
 
 }

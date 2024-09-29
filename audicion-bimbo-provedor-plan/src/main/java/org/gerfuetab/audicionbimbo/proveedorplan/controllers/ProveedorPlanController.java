@@ -23,7 +23,7 @@ public class ProveedorPlanController {
 	private ProveedorPlanService service;
 
 	@CrossOrigin
-	@GetMapping("/proveedor")
+	@GetMapping("/proveedores")
 	public ResponseEntity<ProveedorResponse> listar() {
 
 		List<Proveedor> proveedores = service.listar();
@@ -36,7 +36,7 @@ public class ProveedorPlanController {
 	}
 	
 	@CrossOrigin
-	@GetMapping("/plan")
+	@GetMapping("/planes")
 	public ResponseEntity<PlanResponse> listarPlan() {
 		List<Plan> planes = service.listarPlan();
 		if (planes.isEmpty()) {
@@ -46,7 +46,7 @@ public class ProveedorPlanController {
 	}
 
 	@CrossOrigin
-	@GetMapping("/PlanXProveedor/{proveedor_id}")
+	@GetMapping("/planXProveedor/{proveedor_id}")
 	public ResponseEntity<PlanXProveedorResponse> detalle(@PathVariable Long proveedor_id) {
 		LOGGER.info("Se inicia obtención de planes por proveedor");
 		List<Plan> planes = service.planXProveedor(proveedor_id);
