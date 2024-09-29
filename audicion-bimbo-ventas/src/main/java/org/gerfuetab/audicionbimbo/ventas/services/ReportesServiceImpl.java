@@ -172,5 +172,51 @@ public class ReportesServiceImpl implements ReportesService {
 		}
 	}
 	
+	
+	@Override
+	@Transactional(readOnly = true)
+	public Reporte reporteVentasNumero(PeriodoTiempo periodoTiempo) {
+		try {
+
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			LocalDateTime inicio = LocalDateTime.parse(periodoTiempo.getMomentoInicial(), formatter);
+			LocalDateTime fin = LocalDateTime.parse(periodoTiempo.getMomentoFinal(), formatter);
+			List<BitacoraRecargas> registros = repository.reporteVentasNumero(periodoTiempo.getNumero(),inicio, fin);
+			Float totalMonto = (float) 0;
+			for (BitacoraRecargas registro : registros) {
+				totalMonto = totalMonto + registro.getMonto();
+				registro.getBitacoraRecargaPK().getProveedorPlan().getProveedorPlanPK().getProveedor().setUrl(null);
+			}
+			Reporte reporte = new Reporte("Reporte generado", 210, registros.size(), totalMonto, registros);
+			return reporte;
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+			Reporte reporte = new Reporte("Reporte no generado", 220);
+			return reporte;
+		}
+	}
+	
+	@Override
+	@Transactional(readOnly = true)
+	public ReporteProveedor reporteProveedorPlanID(PeriodoTiempo periodoTiempo) {
+		try {
+
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+			LocalDateTime inicio = LocalDateTime.parse(periodoTiempo.getMomentoInicial(), formatter);
+			LocalDateTime fin = LocalDateTime.parse(periodoTiempo.getMomentoFinal(), formatter);
+			List<ReporteProveedorCount> registros = repository.reporteProveedorPlanID(periodoTiempo.getPlanId(),inicio, fin);
+			if (registros == null) {
+				return new ReporteProveedor("Reporte no generado", 220);
+			}
+			Double totalMonto = (double) 0;
+			for (ReporteProveedorCount registro : registros) {
+				totalMonto = totalMonto + registro.getTotalMonto();
+			}
+			return new ReporteProveedor("Reporte generado", 210, totalMonto, registros);
+		} catch (Exception ex) {
+
+			return new ReporteProveedor("Reporte no generado", 230);
+		}
+	}
 
 }

@@ -63,6 +63,12 @@ public class ReportesController {
 		return ResponseEntity.ok(reporte);
 
 	}
+	
+	@PostMapping("/reportes/reporteProveedor")
+	public ResponseEntity<ReporteProveedor> reporteProveedor(@Valid @RequestBody PeriodoTiempo periodoTiempo) {
+		return ResponseEntity.ok(service.reporteProveedor(periodoTiempo));
+
+	}
 
 	@PostMapping("/reportes/reportePlan")
 	public ResponseEntity<ReportePlan	> reportePlan(@Valid @RequestBody PeriodoTiempo periodoTiempo) {
@@ -73,6 +79,22 @@ public class ReportesController {
 	@PostMapping("/reportes/reporteProveedorPlan")
 	public ResponseEntity<ReporteProveedorPlan	> reporteProveedorPlan(@Valid @RequestBody PeriodoTiempo periodoTiempo) {
 		return ResponseEntity.ok(service.reporteProveedorPlan(periodoTiempo));
+
+	}
+	
+	@PostMapping("/reportes/reporteVentasNumero")
+	public ResponseEntity<Reporte> reporteVentasNumero(@Valid @RequestBody PeriodoTiempo periodoTiempo) {
+		Reporte reporte = service.reporteVentasNumero(periodoTiempo);
+		if (reporte == null) {
+			return ResponseEntity.ok(new Reporte("Reporte no generado", 220));
+		}
+		return ResponseEntity.ok(reporte);
+
+	}
+	
+	@PostMapping("/reportes/reporteProveedorPlanId")
+	public ResponseEntity<ReporteProveedor> reporteProveedorPlanId(@Valid @RequestBody PeriodoTiempo periodoTiempo) {
+		return ResponseEntity.ok(service.reporteProveedorPlanID(periodoTiempo));
 
 	}
 }

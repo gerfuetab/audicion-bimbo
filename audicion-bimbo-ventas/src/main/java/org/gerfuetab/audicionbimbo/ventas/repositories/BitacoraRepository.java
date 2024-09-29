@@ -43,4 +43,14 @@ public interface BitacoraRepository extends CrudRepository<BitacoraRecargas, Bit
 
 	@Query("select new org.gerfuetab.audicionbimbo.ventas.models.ReporteProveedorPlanCount( u.bitacoraRecargaPK.proveedorPlan.proveedorPlanPK.proveedor, u.bitacoraRecargaPK.proveedorPlan.proveedorPlanPK.plan, count(u),sum(u.monto)) from BitacoraRecargas u where u.fecha_transaccion between :momentoInicial and :momentoFinal GROUP BY u.bitacoraRecargaPK.proveedorPlan.proveedorPlanPK.proveedor, u.bitacoraRecargaPK.proveedorPlan.proveedorPlanPK.plan ORDER BY count(u) DESC")
 	List<ReporteProveedorPlanCount> reporteProveedorPlan(@Param("momentoInicial") LocalDateTime momentoInicial, @Param("momentoFinal") LocalDateTime momentoFinal);;
+
+	@Query("select u from BitacoraRecargas u where u.numero =:numero and u.fecha_transaccion between :momentoInicial and :momentoFinal")
+	List<BitacoraRecargas> reporteVentasNumero(@Param("numero") String numero, @Param("momentoInicial") LocalDateTime momentoInicial, @Param("momentoFinal") LocalDateTime momentoFinal);
+	
+	@Query("select new org.gerfuetab.audicionbimbo.ventas.models.ReporteProveedorCount( u.bitacoraRecargaPK.proveedorPlan.proveedorPlanPK.proveedor, count(u),sum(u.monto)) from BitacoraRecargas u where u.bitacoraRecargaPK.proveedorPlan.proveedorPlanPK.plan.plan_id=:planID and u.fecha_transaccion between :momentoInicial and :momentoFinal GROUP BY u.bitacoraRecargaPK.proveedorPlan.proveedorPlanPK.proveedor ORDER BY count(u) DESC")
+	List<ReporteProveedorCount> reporteProveedorPlanID(@Param("planID") Long planID,@Param("momentoInicial") LocalDateTime momentoInicial, @Param("momentoFinal") LocalDateTime momentoFinal);
+
+
 }
+
+

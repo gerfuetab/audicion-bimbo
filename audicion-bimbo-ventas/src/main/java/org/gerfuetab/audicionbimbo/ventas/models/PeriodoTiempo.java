@@ -5,6 +5,8 @@ public class PeriodoTiempo {
 
 	private String momentoInicial;
 	private String momentoFinal;
+	private String numero;
+	private Long planId;
 	
 	public String getMomentoInicial() {
 		return momentoInicial;
@@ -26,7 +28,34 @@ public class PeriodoTiempo {
 	public PeriodoTiempo() {
 		super();
 	}
+	public String getNumero() {
+		return numero;
+	}
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+	public PeriodoTiempo(String momentoInicial, String momentoFinal, String numero) {
+		super();
+		this.momentoInicial = momentoInicial;
+		this.momentoFinal = momentoFinal;
+		this.numero = numero;
+	}
+	public Long getPlanId() {
+		return planId;
+	}
+	public void setPlanId(Long planId) {
+		this.planId = planId;
+	}
+	public PeriodoTiempo(String momentoInicial, String momentoFinal, String numero, Long planId) {
+		super();
+		this.momentoInicial = momentoInicial;
+		this.momentoFinal = momentoFinal;
+		this.numero = numero;
+		this.planId = planId;
+	}
 
+
+	
 
 
 
